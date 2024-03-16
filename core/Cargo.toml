@@ -1,0 +1,19 @@
+[package]
+name = "smol-vergen-core"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+ahash.workspace = true
+anyhow.workspace = true
+erased-serde.workspace = true
+dtoa.workspace = true
+itoa.workspace = true
+serde.workspace = true
+derive_more = { version = "1.0.0-beta.6", features = ["from"] }
+chrono.workspace = true

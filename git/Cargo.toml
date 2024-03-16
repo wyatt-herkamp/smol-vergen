@@ -1,0 +1,21 @@
+[package]
+name = "smol-vergen-git"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+git2 = { version = "0.18", optional = true }
+gitoxide = { version = "0.33", optional = true }
+thiserror.workspace = true
+chrono.workspace = true
+smol-vergen-core = { path = "../core" }
+anyhow.workspace = true
+serde.workspace = true
+[features]
+default = ["git2"]
+gix = ["gitoxide"]

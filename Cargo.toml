@@ -1,0 +1,40 @@
+[workspace]
+members = ["cargo", "core", "git", "smol-vergen-getter"]
+exclude = ["example-project"]
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+license = "MIT OR Apache-2.0"
+authors = ["Wyatt Jacob Herkamp <wherkamp@gmail.com>"]
+repository = "https://github.com/wyatt-herkamp/smol-vergen"
+[workspace.dependencies]
+anyhow = "1"
+serde = { version = "1", features = ["derive"] }
+thiserror = "1"
+chrono = { version = "0.4", features = ["serde"] }
+ahash = "0.8"
+dtoa = "1.0"
+itoa = "1.0"
+erased-serde = "0.4"
+
+[package]
+name = "smol-vergen"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[lib]
+path = "src/lib.rs"
+[dependencies]
+anyhow.workspace = true
+serde_json = "1"
+ahash.workspace = true
+serde.workspace = true
+heck = "0.5"
+thiserror.workspace = true
+erased-serde.workspace = true
+dtoa.workspace = true
+itoa.workspace = true
+smol-vergen-core = { path = "core" }
