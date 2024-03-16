@@ -4,7 +4,6 @@ use chrono::{format::Fixed, DateTime, FixedOffset, Local, TimeZone};
 use git2::Repository;
 
 use crate::GitAcesss;
-
 pub struct NativeGitAccess {
     pub repository: Repository,
 }
@@ -64,8 +63,13 @@ impl GitAcesss for NativeGitAccess {
         Ok(datetime)
     }
 
-    fn get_is_dirty(&self) -> Result<bool, Self::Error> {
-        //TODO
-        Ok(false)
+    fn get_commit_short(&self) -> Result<Option<String>, Self::Error> {
+        let head = self.repository.head()?;
+        let commit = head.peel_to_commit()?;
+        Ok(commit
+            .as_object()
+            .short_id()?
+            .as_str()
+            .map(|v| v.to_string()))
     }
 }

@@ -48,7 +48,10 @@ impl SmolVergenPluginItems {
         }
     }
 }
-pub(crate) fn add_to_env(key: &str, value: &str) {
+/// Adds a key-pair to the Rustc environment
+/// This is a helper function to add a key-pair to the Rustc environment
+#[doc(hidden)]
+pub fn add_to_env(key: &str, value: &str) {
     println!("cargo:rustc-env={}={}", key, value);
 }
 #[derive(Default)]

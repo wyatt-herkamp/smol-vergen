@@ -2,7 +2,6 @@
 use ahash::{HashMap, HashMapExt};
 use anyhow::Context;
 use std::{
-    ffi::{OsStr, OsString},
     path::PathBuf,
 };
 
@@ -97,7 +96,7 @@ impl SmolVergen {
             erased_serde::serialize(value.as_ref(), &mut ser).unwrap();
         }
         for (key, value) in map {
-            std::env::set_var(key, value);
+            smol_vergen_core::add_to_env(&key, &value);
         }
         Ok(())
     }
@@ -108,7 +107,7 @@ impl SmolVergen {
         }
         Ok(())
     }
-    pub(crate) fn save_to_file(&self, file: PathBuf) -> anyhow::Result<()> {
+    pub(crate) fn save_to_file(&self, _file: PathBuf) -> anyhow::Result<()> {
         for (plugin_id, items) in self.context.iter() {
             let base_name = format!("SMOL_VERGEN_{}", plugin_id);
             self.save_plugin_to_env(&base_name, items)?;
