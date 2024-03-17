@@ -3,6 +3,7 @@ mod value;
 use ahash::HashMap;
 use erased_serde::Serialize;
 use value::Value;
+mod cargo_logger;
 
 pub trait Plugin {
     fn run(&mut self, context: &mut SmolVergenContext) -> anyhow::Result<()>;
@@ -33,6 +34,7 @@ impl SmolVergenPluginItems {
             self.add_item(name, item);
         }
     }
+
     /// Add a new complex item to the plugin
     pub fn add_complex_item<V: Serialize + 'static>(&mut self, name: impl Into<String>, item: V) {
         let item_boxed: Box<dyn Serialize> = Box::new(item);

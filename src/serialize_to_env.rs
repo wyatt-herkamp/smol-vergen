@@ -12,7 +12,8 @@ use self::{
     ser_map::SerializeToEnvMap,
     ser_struct::SerializeToEnvStruct,
 };
-
+/// Serialize a value to a map of environment variables
+#[allow(unused)]
 pub(crate) fn serialize_to_map<T: Serialize>(
     prefix: impl Into<String>,
     serialize: &T,

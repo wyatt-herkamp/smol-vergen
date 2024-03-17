@@ -1,9 +1,7 @@
 #![recursion_limit = "256"]
 use ahash::{HashMap, HashMapExt};
 use anyhow::Context;
-use std::{
-    path::PathBuf,
-};
+use std::path::PathBuf;
 
 use serialize_to_env::SerializeToEnv;
 use smol_vergen_core::{Plugin, SmolVergenContext, SmolVergenPluginItems, UnloadedPlugin};
@@ -42,6 +40,7 @@ impl SmolVergenBuilder {
 pub type SmolVergenResult = anyhow::Result<()>;
 pub struct SmolVergen {
     plugins: Vec<Box<dyn Plugin>>,
+    #[allow(dead_code)]
     directory: PathBuf,
     pub context: SmolVergenContext,
 }
@@ -54,28 +53,7 @@ impl SmolVergen {
         self.save_to_env()?;
         Ok(())
     }
-    pub(crate) fn save_to_map(
-        &self,
-        base_name: &str,
-        plugin_items: &SmolVergenPluginItems,
-    ) -> anyhow::Result<HashMap<String, String>> {
-        let mut map = HashMap::new();
-        for (key, value) in &plugin_items.items {
-            let key = format!("{}_{}", base_name, key);
-            value.add_to_map(&key, &mut map);
-        }
-        for (key, value) in &plugin_items.complex_items {
-            let prefix = format!("{}_{}", base_name, key);
 
-            let mut ser = SerializeToEnv {
-                prefix,
-                result: &mut map,
-            };
-            erased_serde::serialize(value.as_ref(), &mut ser).unwrap();
-        }
-
-        Ok(map)
-    }
     pub(crate) fn save_plugin_to_env(
         &self,
         base_name: &str,
@@ -101,13 +79,6 @@ impl SmolVergen {
         Ok(())
     }
     pub(crate) fn save_to_env(&self) -> anyhow::Result<()> {
-        for (plugin_id, items) in self.context.iter() {
-            let base_name = format!("SMOL_VERGEN_{}", plugin_id);
-            self.save_plugin_to_env(&base_name, items)?;
-        }
-        Ok(())
-    }
-    pub(crate) fn save_to_file(&self, _file: PathBuf) -> anyhow::Result<()> {
         for (plugin_id, items) in self.context.iter() {
             let base_name = format!("SMOL_VERGEN_{}", plugin_id);
             self.save_plugin_to_env(&base_name, items)?;

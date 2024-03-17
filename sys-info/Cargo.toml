@@ -1,5 +1,5 @@
 [package]
-name = "smol-vergen-git"
+name = "sys-info"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
@@ -9,19 +9,9 @@ repository.workspace = true
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-git2 = { version = "0.18", optional = true }
-gix = { version = "0.60", optional = true }
-gix-object = { version = "0.42", optional = true }
 thiserror.workspace = true
 chrono.workspace = true
 smol-vergen-core = { path = "../core" }
 anyhow.workspace = true
 serde.workspace = true
-cfg-if = "1"
-either = "1"
-which = { version = "6", optional = true }
 derive_builder.workspace = true
-[features]
-default = ["gix"]
-gix = ["dep:gix", "dep:gix-object"]
-cli = ["which"]
