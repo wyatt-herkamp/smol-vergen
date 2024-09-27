@@ -2,10 +2,7 @@ use std::path::PathBuf;
 
 use crate::GitAcesss;
 use chrono::{DateTime, FixedOffset, TimeZone};
-use gix::{
-    bstr::{ByteSlice},
-    Repository,
-};
+use gix::{bstr::ByteSlice, Repository};
 #[derive(thiserror::Error, Debug)]
 pub enum GixError {
     #[error(transparent)]
@@ -86,16 +83,46 @@ impl GitAcesss for GitoxideAccess {
         let mut head = self.repository.head()?;
         let commit = head.peel_to_commit_in_place()?;
         let time = commit.time()?;
+        #[cfg(test)]
+        println!("Time: {:?}", time);
         let offset = match time.sign {
-            gix::date::time::Sign::Plus => FixedOffset::east_opt(time.offset * 60),
-            gix::date::time::Sign::Minus => FixedOffset::west_opt(time.offset * 60),
+            gix::date::time::Sign::Plus => FixedOffset::east_opt(time.offset.abs()),
+            gix::date::time::Sign::Minus => FixedOffset::west_opt(time.offset.abs()),
         };
         let Some(offset) = offset else {
+            #[cfg(test)]
+            println!("Could not get offset");
             return Ok(None);
         };
         let datetime = offset
             .timestamp_millis_opt(time.seconds as i64 * 1000)
             .single();
         Ok(datetime)
+    }
+}
+
+#[cfg(test)]
+
+mod tests {
+    use anyhow::bail;
+
+    use crate::{find_folder_with_git, GitAcesss};
+
+    use super::GitoxideAccess;
+
+    #[test]
+    pub fn test_timestamp() -> anyhow::Result<()> {
+        let git_folder =
+            find_folder_with_git(std::env::current_dir().expect("Could not get current dir"));
+        let Some(git_folder) = git_folder else {
+            bail!("Could not find git folder");
+        };
+        let git_access = GitoxideAccess::load(git_folder)?;
+        let timestamp = git_access.get_commit_timestamp()?;
+        let Some(timestamp) = timestamp else {
+            bail!("Could not get timestamp");
+        };
+        println!("Timestamp: {}", timestamp);
+        Ok(())
     }
 }

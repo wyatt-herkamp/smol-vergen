@@ -12,4 +12,9 @@ build = "build.rs"
 [build-dependencies]
 smol-vergen = { path = "../" }
 smol-vergen-git = { path = "../git" }
-smol-vergen-cargo = { path = "../cargo-impl" }
+smol-vergen-build = { path = "../build" }
+
+[features]
+gix = []
+cli = []
+git2 = []

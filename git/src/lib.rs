@@ -268,7 +268,7 @@ where
         }
     }
 }
-fn find_folder_with_git(base: PathBuf) -> Option<PathBuf> {
+pub(crate) fn find_folder_with_git(base: PathBuf) -> Option<PathBuf> {
     let mut current = base;
     loop {
         if current.join(".git").exists() {
@@ -280,19 +280,27 @@ fn find_folder_with_git(base: PathBuf) -> Option<PathBuf> {
     }
     None
 }
+
 #[cfg(test)]
 mod test {
     use anyhow::Context;
 
     use crate::GitAcesss;
-
+    #[cfg(feature = "gix")]
     #[test]
     pub fn test_gix() -> anyhow::Result<()> {
-        #[cfg(feature = "gix")]
         print_git_info::<crate::gitoxide_access::GitoxideAccess>()?;
-        #[cfg(feature = "git2")]
+        Ok(())
+    }
+    #[cfg(feature = "git2")]
+    #[test]
+    pub fn test_git2() -> anyhow::Result<()> {
         print_git_info::<crate::native_git_access::NativeGitAccess>()?;
-        #[cfg(feature = "cli")]
+        Ok(())
+    }
+    #[cfg(feature = "cli")]
+    #[test]
+    pub fn test_cli() -> anyhow::Result<()> {
         print_git_info::<crate::cli_access::CLIGitAccess>()?;
         Ok(())
     }

@@ -1,5 +1,5 @@
 [workspace]
-members = ["core", "cargo-impl", "git", "smol-vergen-getter", "sys-info"]
+members = ["core", "build", "git", "smol-vergen-getter", "sys-info"]
 exclude = ["example-project"]
 resolver = "2"
 
@@ -9,6 +9,7 @@ edition = "2021"
 license = "MIT OR Apache-2.0"
 authors = ["Wyatt Jacob Herkamp <wherkamp@gmail.com>"]
 repository = "https://github.com/wyatt-herkamp/smol-vergen"
+
 [workspace.dependencies]
 anyhow = "1"
 serde = { version = "1", features = ["derive"] }

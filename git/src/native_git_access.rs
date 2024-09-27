@@ -1,6 +1,6 @@
 use std::path::PathBuf;
 
-use chrono::{format::Fixed, DateTime, FixedOffset, Local, TimeZone};
+use chrono::{DateTime, FixedOffset, TimeZone};
 use git2::Repository;
 
 use crate::GitAcesss;

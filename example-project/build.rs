@@ -1,5 +1,5 @@
 use smol_vergen::{SmolVergenBuilder, SmolVergenResult};
-use smol_vergen_git::{GitPlugin, GitPluginBuilder};
+use smol_vergen_git::GitPluginBuilder;
 
 fn main() -> SmolVergenResult {
     let mut smol_vergen = SmolVergenBuilder::default()
