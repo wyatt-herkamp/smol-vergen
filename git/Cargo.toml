@@ -10,7 +10,7 @@ repository.workspace = true
 
 [dependencies]
 git2 = { version = "0.19", optional = true }
-gix = { version = "0.66", optional = true }
+gix = { version = "0.67", optional = true }
 gix-object = { version = "0.44", optional = true }
 thiserror.workspace = true
 chrono.workspace = true
