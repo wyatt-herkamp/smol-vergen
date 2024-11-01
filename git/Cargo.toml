@@ -19,7 +19,7 @@ anyhow.workspace = true
 serde.workspace = true
 cfg-if = "1"
 either = "1"
-which = { version = "6", optional = true }
+which = { version = "7", optional = true }
 derive_builder.workspace = true
 [features]
 default = ["gix"]
