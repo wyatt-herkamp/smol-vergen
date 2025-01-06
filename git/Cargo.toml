@@ -9,7 +9,7 @@ repository.workspace = true
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-git2 = { version = "0.19", optional = true }
+git2 = { version = "0.20", optional = true }
 gix = { version = "0.66", optional = true }
 gix-object = { version = "0.44", optional = true }
 thiserror.workspace = true
