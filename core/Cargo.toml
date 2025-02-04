@@ -15,5 +15,5 @@ erased-serde.workspace = true
 dtoa.workspace = true
 itoa.workspace = true
 serde.workspace = true
-derive_more = { version = "1.0.0-beta.6", features = ["from"] }
+derive_more = { version = "2.0.1", features = ["from"] }
 chrono.workspace = true
